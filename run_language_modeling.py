@@ -327,6 +327,8 @@ def main():
         logger.info("*** Evaluate ***")
 
         eval_output = trainer.evaluate()
+        test = trainer.predict(eval_dataset)
+        print(test)
 
         perplexity = math.exp(eval_output["eval_loss"])
         result = {"perplexity": perplexity}
