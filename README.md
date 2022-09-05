@@ -47,7 +47,7 @@ tail -n +901 examples/qed_property_example.txt > examples/eval.txt
 
 Launch the training:
 ```console
-python scripts/run_language_modeling.py --output_dir examples/models/xlnet_selfies \
+python run_language_modeling.py --output_dir examples/models/xlnet_selfies \
     --config_name configs/xlnet_selfies.json --tokenizer_name ./examples/vocab.txt \
     --do_train --do_eval --learning_rate 1e-4 --num_train_epochs 5 --save_total_limit 2 \
     --save_steps 500 --per_gpu_train_batch_size 16 --evaluate_during_training --eval_data_file ./examples/eval.txt \
