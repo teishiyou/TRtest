@@ -246,8 +246,7 @@ def main():
         if training_args.do_eval
         else None
     )
-    if training_args.do_eval:
-        logger.info(f"Dataset sizes {len(train_dataset)}, {len(eval_dataset)}.")
+
     num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     logger.info(f"Number of parameters {num_params} of type {type(model)}")
 
@@ -292,7 +291,7 @@ def main():
 
     custom_trainer_params = get_trainer_dict(model_params)
 
-    # Initialize our Trainer    
+    # Initialize our Trainer
     trainer = CustomTrainer(
         model=model,
         args=training_args,
@@ -314,8 +313,8 @@ def main():
             and os.path.isdir(model_args.model_name_or_path)
             else None
         )
-        trainer.train(model_path=model_path)
-        trainer.save_model()
+        #trainer.train(model_path=model_path)
+        trainer.load_model()
         # For convenience, we also re-save the tokenizer to the same directory,
         # so that you can share your model easily on huggingface.co/models =)
         if trainer.is_world_master():
@@ -329,6 +328,7 @@ def main():
         eval_output = trainer.evaluate()
         test = trainer.predict(eval_dataset)
         print(test)
+
 
         perplexity = math.exp(eval_output["eval_loss"])
         result = {"perplexity": perplexity}
