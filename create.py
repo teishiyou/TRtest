@@ -15,7 +15,7 @@ parser.add_argument(
     "output_filepath", type=str, help="output where to store the vocabulary."
 )
 parser.add_argument(
-    "--max_exponent", type=int, default=5, help="maximum exponent for num-tokens."
+    "--max_exponent", type=int, default=18, help="maximum exponent for num-tokens."
 )
 
 
@@ -42,13 +42,15 @@ def main() -> None:
             "<lipinski>",
             "<rxnretro>",
             "<aromatic>",
+            "|",
+            
         ]
     )
     # tokens for property numerical values
     digits = list(range(10))
     vocabulary_counter.update(
         [
-            f"_{digit}_{exponent}_"
+            f"_{digit}_-{exponent}_"
             for exponent in range(max_exponent + 1)
             for digit in digits
         ]
@@ -58,9 +60,8 @@ def main() -> None:
             for digit in digits
         ]
     )
-    with open(input_filepath, "rt") as fp:
-        for line in tqdm(fp):
-            vocabulary_counter.update(tokenizer.tokenize(line.strip()))
+
+    vocabulary_counter.update(['A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V'])
 
     # special tokens for the model training and keeping the possibility to extend the vocabulart
     special_tokens = [

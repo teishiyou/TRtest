@@ -6,7 +6,8 @@ import torch
 from selfies import decoder, split_selfies
 from transformers import BertTokenizer, XLNetTokenizer
 
-SMILES_TOKENIZER_PATTERN = r"(\%\([0-9]{3}\)|\[[^\]]+]|Br?|Cl?|N|O|S|P|F|I|b|c|n|o|s|p|\||\(|\)|\.|=|#|-|\+|\\|\/|:|~|@|\?|>>?|\*|\$|\%[0-9]{2}|[0-9])"
+#'A','R','N','D','C','Q','E','G','H','I','L','K','M','F','P','S','T','W','Y','V'
+SMILES_TOKENIZER_PATTERN = r"(\%\([0-9]{3}\)|\[[^\]]+]|A|R|N|D|C|W|Q|E|G|H|I|L|K|M|F|P|S|T|W|Y|V|\||\(|\)|\.|=|#|-|\+|\\|\/|:|~|@|\?|>>?|\*|\$|\%[0-9]{2}|[0-9])"
 
 
 class RegexTokenizer:
