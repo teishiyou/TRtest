@@ -25,6 +25,7 @@ from transformers import (
     DataCollatorForLanguageModeling,
     DataCollatorForPermutationLanguageModeling,
     HfArgumentParser,
+    XLMWithLMHeadModel,
     LineByLineTextDataset,
     PreTrainedTokenizer,
     TextDataset,
@@ -215,7 +216,7 @@ def main():
 
     else:
         logger.info("Training new model from scratch")
-        model = AutoModelWithLMHead.from_config(config)
+        model = XLMWithLMHeadModel.from_config(config)
 
     logger.info(f"PyTorch version: {torch.__version__}")
     model.resize_token_embeddings(len(tokenizer))
