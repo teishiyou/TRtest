@@ -43,7 +43,9 @@ def main() -> None:
             "<rxnretro>",
             "<aromatic>",
             "|",
-            
+            "_._",
+            "_0_0_"
+
         ]
     )
     # tokens for property numerical values

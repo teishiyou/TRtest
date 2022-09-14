@@ -20,7 +20,7 @@ import transformers
 from transformers import (
     CONFIG_MAPPING,
     MODEL_WITH_LM_HEAD_MAPPING,
-    AutoConfig,
+    XLMConfig,
     AutoModelWithLMHead,
     DataCollatorForLanguageModeling,
     DataCollatorForPermutationLanguageModeling,
@@ -148,7 +148,7 @@ def main():
         with open(model_args.config_name, "r") as f:
             model_params = json.load(f)
 
-        config = AutoConfig.from_pretrained(
+        config = XLMConfig.from_pretrained(
             model_args.config_name,
             cache_dir=model_args.cache_dir,
             mem_len=model_params.get("mem_len", 1024),
@@ -156,7 +156,7 @@ def main():
 
     elif model_args.model_name_or_path:
 
-        config = AutoConfig.from_pretrained(
+        config = XLMConfig.from_pretrained(
             model_args.model_name_or_path,
             cache_dir=model_args.cache_dir,
         )
@@ -216,7 +216,7 @@ def main():
 
     else:
         logger.info("Training new model from scratch")
-        model = XLMWithLMHeadModel.from_config(config)
+        model = XLMWithLMHeadModel(config)
 
     logger.info(f"PyTorch version: {torch.__version__}")
     model.resize_token_embeddings(len(tokenizer))
