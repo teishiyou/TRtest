@@ -21,7 +21,7 @@ from torch.nn import CrossEntropyLoss
 from torch.utils.data.dataloader import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 from tqdm.auto import tqdm, trange
-from transformers import Trainer, XLMNetTokenizer
+from transformers import Trainer, XLNetTokenizer
 from transformers.file_utils import is_torch_tpu_available
 from transformers.integrations import is_optuna_available, is_ray_available
 from transformers.trainer_utils import (
@@ -1095,7 +1095,7 @@ class CustomTrainer(Trainer):
                         self.property_evaluate()
 
                         # The only task that used an XLNetTokenizer was the joke dataset.
-                        if isinstance(self.tokenizer, XLMNetTokenizer):
+                        if isinstance(self.tokenizer, XLNetTokenizer):
                             self.joke_generation_evaluate()
 
                         self._report_to_hp_search(trial, epoch, metrics)

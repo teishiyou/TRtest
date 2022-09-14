@@ -25,7 +25,7 @@ from transformers import (
     DataCollatorForLanguageModeling,
     DataCollatorForPermutationLanguageModeling,
     HfArgumentParser,
-    XLMWithLMHeadModel,
+    XLNetLMHeadModel,
     LineByLineTextDataset,
     PreTrainedTokenizer,
     TextDataset,
@@ -216,7 +216,7 @@ def main():
 
     else:
         logger.info("Training new model from scratch")
-        model = XLMWithLMHeadModel(config)
+        model = XLNetLMHeadModel.from_config(config)
 
     logger.info(f"PyTorch version: {torch.__version__}")
     model.resize_token_embeddings(len(tokenizer))
@@ -328,8 +328,6 @@ def main():
         logger.info("*** Evaluate ***")
 
         eval_output = trainer.evaluate()
-        test = trainer.predict(eval_dataset)
-        print(test)
 
         perplexity = math.exp(eval_output["eval_loss"])
         result = {"perplexity": perplexity}
